@@ -1,0 +1,7 @@
+{
+  "name": "maple10032_bot",
+  "description": "ツイッターボット",
+  "logo": "",
+  "keywords": ["node"],
+  "image": "heroku/nodejs"
+}
