@@ -80,10 +80,10 @@ function isCheckedTweet(homeTimeLineTweet) {
   cronTime: '00 0-59/3 * * * *', // ３分ごとに実行
   start: true, // newした後即時実行するかどうか
   onTick: () => {
-    getHomeTimeLine();
+    //getHomeTimeLine();
   }
 });
-getHomeTimeLine();
+//getHomeTimeLine();
 
 
 
@@ -108,7 +108,7 @@ const stream = client.stream('statuses/filter', { track: '@maple10032_bot' });
 stream.on('data', function(tweet) {
     console.log(tweet.text);
 
-    const tweetMessage = '@' + tweet.user.screen_name + ' ' + replyRandom();
+    const tweetMessage = '@' + tweet.user.screen_name + ' ' + replyRandom() + ' ' + Math.random().toString(36).slice(-8);
     client.post('statuses/update', {
             status: tweetMessage,
             in_reply_to_status_id: tweet.id_str
