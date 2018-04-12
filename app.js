@@ -11,8 +11,10 @@ const client = new Twitter({
 
 let checkedTweets = [];
 
+
 function getHomeTimeLine() {
   client.get('statuses/home_timeline', {}, (error, tweets, response) => {
+    console.log('cron came!');
     if(error) console.log(error);
     
     //初回起動時は取得するだけで終了
@@ -22,6 +24,7 @@ function getHomeTimeLine() {
       });
 
       return;
+    
     }
 
     const newTweets = [];
@@ -65,25 +68,28 @@ function isCheckedTweet(homeTimeLineTweet) {
               in_reply_to_status_id: homeTimeLineTweet.id_str
           })
           .then((tweet) => {
-              console.log(tweet);
+              console.log(tweet.text);
           })
           .catch((error) => {
               throw error;
           });
   }
   
+
   const cronJob = new cron({
   cronTime: '00 0-59/3 * * * *', // ３分ごとに実行
   start: true, // newした後即時実行するかどうか
   onTick: () => {
-    //getHomeTimeLine();
+    getHomeTimeLine();
   }
 });
-//getHomeTimeLine();
+getHomeTimeLine();
 
 
 
 
+
+ 
 const replyTweet = ['返信ありがとう！', '仲良くしてね！', 'うれしみを感じる'];
 const reraReplyTweet = '大好きです';
 
@@ -118,5 +124,3 @@ stream.on('data', function(tweet) {
 stream.on('error', function(error) {
     throw error;
 });
-
-//終了
